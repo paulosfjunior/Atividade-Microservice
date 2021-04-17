@@ -1,0 +1,15 @@
+{
+  "name": "sendemail",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Paulo Freitas",
+  "license": "ISC",
+  "dependencies": {
+    "amqplib": "^0.7.1",
+    "mailhog": "^4.15.0"
+  }
+}
