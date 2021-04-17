@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const amqp = require('amqplib/callback_api');
+const nodemailer = require('nodemailer');
 
 amqp.connect('amqp://localhost', function (error0, connection) {
   if (error0) {
@@ -57,11 +58,21 @@ function findRejeitado (channel) {
 
 function sendEmail (tipo, pedido) {
   const estrutura = JSON.parse(pedido);
-  console.log({ tipo,  estrutura});
-
-  const mailhog = require('mailhog')({
-    host: 'mailhog'
-  })
   
-  mailhog.messages().then(result => console.log(result))
+  const transport = nodemailer.createTransport({
+    host: process.env.MAILHOG_HOST,
+    port: '1025',
+    auth: null
+  });
+
+  transport.sendMail({
+    from: 'Paulo Freitas <paulosfjunior@gmail.com>',
+    to: 'Paulo Freitas <paulosfjunior@gmail.com>',
+    subject: 'Pedido ' + tipo,
+    html: estrutura.toString()
+  })
+  .then((d) => console.log('Enviado'))
+  .catch((e) => console.log({e}));
+
+  console.log({ tipo, estrutura });
 }
