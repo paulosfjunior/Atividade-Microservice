@@ -31,7 +31,7 @@ function findAprovado (channel) {
     setTimeout(function () {
       console.log(" [x] Verificado aprovados");
       channel.ack(msg);
-    }, secs * 3000);
+    }, secs * 1000);
   }, {
     noAck: false
   });
@@ -50,14 +50,14 @@ function findRejeitado (channel) {
     setTimeout(function () {
       console.log(" [x] Verificado rejeitados");
       channel.ack(msg);
-    }, secs * 3000);
+    }, secs * 1000);
   }, {
     noAck: false
   });
 }
 
 function sendEmail (tipo, pedido) {
-  const estrutura = JSON.parse(pedido);
+  const estrutura = pedido
   
   const transport = nodemailer.createTransport({
     host: process.env.MAILHOG_HOST,
@@ -66,7 +66,7 @@ function sendEmail (tipo, pedido) {
   });
 
   transport.sendMail({
-    from: 'Paulo Freitas <paulosfjunior@gmail.com>',
+    from: 'Leonaro Lima <leonardortlima@gmail.com>',
     to: 'Paulo Freitas <paulosfjunior@gmail.com>',
     subject: 'Pedido ' + tipo,
     html: estrutura.toString()

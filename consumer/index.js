@@ -35,7 +35,7 @@ amqp.connect('amqp://localhost', function (error0, connection) {
       setTimeout(function () {
         console.log(" [x] Done");
         channel.ack(msg);
-      }, secs * 300);
+      }, secs * 500);
     }, {
       noAck: false
     });
